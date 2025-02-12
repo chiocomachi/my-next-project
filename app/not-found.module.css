@@ -1,0 +1,19 @@
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: 'system-ui', "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin-bottom: 24px;
+}
+
+.text {
+    font-size: 1rem;
+}
+
+.container {
+    position: relative;
+    background-color: #fff;
+    margin: -40px auto 0;
+    padding: 160px 80px;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
