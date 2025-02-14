@@ -1,29 +1,30 @@
-import { notFound } from 'next/navigation';
-import { getCategoryDetail, getNewsList } from '@/app/_libs/microcms';
-import NewsList from '@/app/_components/NewsList';
-import Pagination from '@/app/_components/Pagination';
-import { NEWS_LIST_LIMIT } from '@/app/_constants';
+import { notFound } from "next/navigation";
+import { getCategoryDetail, getNewsList } from "@/app/_libs/microcms";
+import NewsList from "@/app/_components/NewsList";
+import Pagination from "@/app/_components/Pagination";
+import { NEWS_LIST_LIMIT } from "@/app/_constants";
 
 type Props = {
-  params: {
+  params: Promise<{
     current: string;
     id: string;
-  };
+  }>;
 };
 
 export default async function Page({ params }: Props) {
-  const current = parseInt(params.current as string, 10);
+  const { current, id } = await params;
+  const currentNumber = parseInt(current as string, 10);
 
-  if (Number.isNaN(current) || current < 1) {
+  if (Number.isNaN(currentNumber) || currentNumber < 1) {
     notFound();
   }
 
-  const category = await getCategoryDetail(params.id).catch(notFound);
+  const category = await getCategoryDetail(id).catch(notFound);
 
   const { contents: news, totalCount } = await getNewsList({
     filters: `category[equals]${category.id}`,
     limit: NEWS_LIST_LIMIT,
-    offset: NEWS_LIST_LIMIT * (current - 1),
+    offset: NEWS_LIST_LIMIT * (currentNumber - 1),
   });
 
   if (news.length === 0) {
@@ -35,7 +36,7 @@ export default async function Page({ params }: Props) {
       <NewsList news={news} />
       <Pagination
         totalCount={totalCount}
-        current={current}
+        current={currentNumber}
         basePath={`/news/category/${category.id}`}
       />
     </>
