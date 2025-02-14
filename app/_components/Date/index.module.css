@@ -1,6 +1,7 @@
 .date {
-    gap: 8px;
-    margin-block: 0.8rem;
-    font-size: 1rem;
-  }
-  
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0.8rem 0;
+  font-size: 1rem;
+}

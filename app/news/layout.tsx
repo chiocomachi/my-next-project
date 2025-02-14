@@ -1,5 +1,5 @@
-import Hero from "@/app/_components/Hero";
-import Sheet from "@/app/_components/Sheet";
+import Hero from '@/app/_components/Hero';
+import Sheet from '@/app/_components/Sheet';
 
 type Props = {
   children: React.ReactNode;
